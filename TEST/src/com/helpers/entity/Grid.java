@@ -67,11 +67,11 @@ public class Grid {
         String tmp;
         for (int i = 0; i < nbrow; i++) {
             for (int j = 0; j < nbCol; j++) {
-                if (mapGrid[i][j] == "j") {
-                    if (i + 1 <= nbrow) {
+                if (mapGrid[i][j].equals("j")) {
+                    if (i+1 <= nbrow) {
                         tmp = mapGrid[i][j];
-                        mapGrid[i][j] = " ";
-                        mapGrid[i + 1][j] = tmp;
+                        mapGrid[i++][j] = " ";
+                        mapGrid[i++][j] = tmp;
                     }
                 }
             }
@@ -82,7 +82,7 @@ public class Grid {
         String tmp ;
         for (int i = 0; i < nbrow; i++) {
             for (int j = 0; j < nbCol; j++) {
-                if (mapGrid[i][j] .equals("j")) {
+                if (mapGrid[i][j].equals("j")) {
                     if (j+1 < nbCol) {
                         tmp = mapGrid[i][j];
                         mapGrid[i][j++] = " ";
@@ -96,7 +96,7 @@ public class Grid {
         String tmp ;
         for (int i = 0; i < nbrow; i++) {
             for (int j = 0; j < nbCol; j++) {
-                if (mapGrid[i][j] == "j") {
+                if (mapGrid[i][j].equals("j")) {
                     if (j-1 < nbCol) {
                         tmp = mapGrid[i][j];
                         mapGrid[i][j] = " ";

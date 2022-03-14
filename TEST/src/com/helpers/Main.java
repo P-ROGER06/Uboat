@@ -37,8 +37,6 @@ public class Main {
                 case "s" -> {
                     firstLevel.movingB();
                     firstLevel.showTest();
-                   //StopMoving();
-                   // System.out.println("les moteurs du sous-marins " + Uboat.getName() + " sont à l'arrêt");
                 }
                 case "d" -> {
                     firstLevel.movingR();
@@ -46,6 +44,10 @@ public class Main {
                 }
                 case "f" -> Fire();
                 case "i" -> isAlive();
+                case "a" -> {
+                    StopMoving();
+                    System.out.println("les moteurs du sous-marins " + Uboat.getName() + " sont à l'arrêt");
+                }
             }
         }
 
