@@ -4,6 +4,7 @@ public class Grid {
     private int nbrow;
     private int nbCol;
     private String[][] mapGrid;
+    public boolean torpedo = false;
 
     public Grid(int n, int p) {
         nbrow = n;
@@ -13,7 +14,7 @@ public class Grid {
         mapGrid = new String[nbrow][nbCol];
         for (int i = 0; i < nbrow; i++) {
             for (int j = 0; j < nbCol; j++) {
-                mapGrid[i][j] = " ";
+                mapGrid[i][j] = ".";
             }
         }
     }
@@ -37,7 +38,7 @@ public class Grid {
             System.out.println("Erreur! de placement");
             return;
         }
-        if (mapGrid[l][c] == " ") {
+        if (mapGrid[l][c] == ".") {
             mapGrid[l][c] = t;
         } else {
             System.out.println("Erreur, cette zone n'est pas vide");
@@ -52,10 +53,10 @@ public class Grid {
         String tmp;
         for (int i = 0; i < nbrow; i++) {
             for (int j = 0; j < nbCol; j++) {
-                if (mapGrid[i][j] == "j") {
-                    if (i - 1 >= 0) {
+                if (mapGrid[i][j] == Uboat.getName()) {
+                    if (i - 1 >= 0 && mapGrid[i - 1][j] == ".") {
                         tmp = mapGrid[i][j];
-                        mapGrid[i][j] = " ";
+                        mapGrid[i][j] = ".";
                         mapGrid[i - 1][j] = tmp;
                     }
                 }
@@ -65,13 +66,13 @@ public class Grid {
 
     public void movingB() {
         String tmp;
-        for (int i = 0; i < nbrow; i++) {
+        for (int i = 1; i < nbrow; i++) {
             for (int j = 0; j < nbCol; j++) {
-                if (mapGrid[i][j].equals("j")) {
-                    if (i+1 <= nbrow) {
+                if (mapGrid[i][j].equals(Uboat.getName())) {
+                    if (i + 1 < nbrow && mapGrid[i + 1][j] == ".") {
                         tmp = mapGrid[i][j];
-                        mapGrid[i++][j] = " ";
-                        mapGrid[i++][j] = tmp;
+                        mapGrid[i++][j] = ".";
+                        mapGrid[i][j] = tmp;
                     }
                 }
             }
@@ -79,33 +80,69 @@ public class Grid {
     }
 
     public void movingR() {
-        String tmp ;
+        String tmp;
         for (int i = 0; i < nbrow; i++) {
             for (int j = 0; j < nbCol; j++) {
-                if (mapGrid[i][j].equals("j")) {
-                    if (j+1 < nbCol) {
+                if (mapGrid[i][j].equals(Uboat.getName())) {
+                    if (j + 1 < nbCol && mapGrid[i][j + 1] == ".") {
                         tmp = mapGrid[i][j];
-                        mapGrid[i][j++] = " ";
+                        mapGrid[i][j++] = ".";
                         mapGrid[i][j++] = tmp;
                     }
                 }
             }
         }
     }
+
     public void movingL() {
-        String tmp ;
+        String tmp;
         for (int i = 0; i < nbrow; i++) {
-            for (int j = 0; j < nbCol; j++) {
-                if (mapGrid[i][j].equals("j")) {
-                    if (j-1 < nbCol) {
+            for (int j = 1; j < nbCol; j++) {
+                if (mapGrid[i][j].equals(Uboat.getName())) {
+                    if (j <= nbCol && mapGrid[i][j - 1] == ".") {
                         tmp = mapGrid[i][j];
-                        mapGrid[i][j] = " ";
-                        mapGrid[i][j-1] = tmp;
+                        mapGrid[i][j] = ".";
+                        mapGrid[i][j - 1] = tmp;
                     }
                 }
             }
         }
-
     }
+
+    public boolean torpedoFire(boolean torpedo) {
+        for (int i = 0; i < nbrow; i++) {
+            for (int j = 0; j < nbCol; j++) {
+                if (mapGrid[i][j].equals(Uboat.getName())) {
+                    int y = i;
+                    int x = j+1;
+                    System.out.println("x: " + x + " y: " + y);
+                    if (mapGrid[y][x] == ".") {
+                        mapGrid[y][x] = ">";
+                    } else {
+                        System.out.println("Erreur, cette zone n'est pas vide");
+                    }
+                }
+            }
+        }
+        return torpedo = true;
+    }
+
+
+
+    public void torpedoTu(){
+        String tmp;
+        for (int i = 0; i < nbrow; i++) {
+            for (int j = 0; j < nbCol; j++) {
+                if (mapGrid[i][j] == ">" ) {
+                    if (j + 2 < nbCol && mapGrid[i][j + 2] == ".") {
+                        tmp = mapGrid[i][j];
+                        mapGrid[i][j++] = ".";
+                        mapGrid[i][j++] = tmp;
+                    }
+                }
+            }
+        }
+    }
+
 }
 
